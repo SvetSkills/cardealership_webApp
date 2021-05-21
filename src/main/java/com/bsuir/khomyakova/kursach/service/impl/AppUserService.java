@@ -1,50 +1,58 @@
-package com.bsuir.khomyakova.kursach.model;
+package com.bsuir.khomyakova.kursach.service.impl;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.bsuir.khomyakova.kursach.model.AppUser;
+import com.bsuir.khomyakova.kursach.model.AppUserRole;
 import com.bsuir.khomyakova.kursach.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
+@Transactional
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService {
+public class AppUserService {
 
+    @Autowired
+    private AppUserRepository appUserRepository;
 
-    private final static String USER_NOT_FOUND_MSG =
-            "user with email %s not found";
+//    @Override
+//    public UserDetails loadUserByUsername(String email)
+//            throws UsernameNotFoundException {
+//        return appUserRepository.findAppUserByEmail(email);
+//    }
 
-    private final AppUserRepository appUserRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    public List<AppUser> listAll(){
+        return appUserRepository.findAll();
+    }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public AppUser getByEmail(String email)
+    {
         return appUserRepository.findAppUserByEmail(email);
+
     }
 
-    public String signUpUser(AppUser appUser) {
-        boolean userExists = appUserRepository
-                //.findByEmail(appUser.getEmail())
-                .findAppUserByEmail(appUser.getEmail())
-                .isPresent();
-
-        if (userExists) {
-            throw new IllegalStateException("email already taken");
-        }
-
-        String encodedPassword = bCryptPasswordEncoder
-                .encode(appUser.getPassword());
-
-        appUser.setPassword(encodedPassword);
-
-        appUserRepository.save(appUser);
-        return appUser.getEmail();
+    public AppUser get(Long id){
+        return appUserRepository.findAppUserById(id);
     }
+
+    public void save(AppUser user){
+        appUserRepository.save(user);
+    }
+
+    public void delete(Long id)
+    {
+        appUserRepository.deleteById(id);
+
+    }
+
 
 }
 
@@ -68,7 +76,7 @@ public class AppUserService implements UserDetailsService {
 
 
 
-    //private final static String USER_NOT_FOUNT_MSG = "User with email %s not found";
+    //private final templates String USER_NOT_FOUNT_MSG = "User with email %s not found";
     /*private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
