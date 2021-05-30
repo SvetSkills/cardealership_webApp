@@ -1,15 +1,5 @@
 package com.bsuir.khomyakova.kursach.model;
-
-import lombok.*;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 
 @Entity
@@ -28,7 +18,7 @@ public class AppUser  {
     @Enumerated(EnumType.STRING)
     private AppUserRole role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Client client;
 
     public Long getUserId() {
@@ -59,41 +49,6 @@ public class AppUser  {
         this.role = role;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        SimpleGrantedAuthority authority =
-//                new SimpleGrantedAuthority(role.name());
-//        return Collections.singletonList(authority);
-//    }
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
-//
-//    public boolean isPresent() {
-//        return true;
-//    }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -106,14 +61,3 @@ public class AppUser  {
         this.client = client;
     }
 }
-//   public AppUser(String password,
-//                  String email,
-//                  AppUserRole appUserRole){
-//       this.password=password;
-//       this.email=email;
-//       this.role=appUserRole;
-//   }
-//
-//    public AppUser() {
-//
-//    }

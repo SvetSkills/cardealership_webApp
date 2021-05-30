@@ -1,10 +1,11 @@
 package com.bsuir.khomyakova.kursach.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "cars")
+@Table(name = "car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +18,16 @@ public class Car {
 
     private Integer price;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", fetch = FetchType.EAGER)
+    private Collection<Order> order;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
+    }
 
     public String getCarName() {
         return carName;
@@ -45,13 +53,7 @@ public class Car {
         this.price = price;
     }
 
-    public Client getClient() {
-        return client;
-    }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     public Long getCarId() {
         return carId;

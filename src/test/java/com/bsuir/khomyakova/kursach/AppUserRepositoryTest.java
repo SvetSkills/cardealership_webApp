@@ -1,12 +1,10 @@
 package com.bsuir.khomyakova.kursach;
 
-import com.bsuir.khomyakova.kursach.model.AppUser;
-import com.bsuir.khomyakova.kursach.model.AppUserRole;
-import com.bsuir.khomyakova.kursach.model.Car;
-import com.bsuir.khomyakova.kursach.model.Client;
+import com.bsuir.khomyakova.kursach.model.*;
 import com.bsuir.khomyakova.kursach.repository.AppUserRepository;
 import com.bsuir.khomyakova.kursach.repository.CarsRepository;
 import com.bsuir.khomyakova.kursach.repository.ClientRepository;
+import com.bsuir.khomyakova.kursach.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -37,23 +35,31 @@ public class AppUserRepositoryTest {
     @Autowired
     private CarsRepository carsRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
 
+    @Test
+    public void startPage() {
+        List<Car> list1 = carsRepository.findAll();
+        System.out.println(list1.get(0).getCarId());
+
+    }
     @Test
     public void testUserCreation(){
 
         AppUser user1=new AppUser();
        // user1.setUserId(Long.valueOf(1));
-        user1.setEmail("ass@gmail.com");
-        user1.setPassword("555");
-        user1.setRole(USER);
+        user1.setEmail("admin@gmail.com");
+        user1.setPassword("111");
+        user1.setRole(ADMIN);
         repository.save(user1);
 
-        Client client = new Client();
-        // client.setClientId(Long.valueOf(1));
-        client.setName("Dddd");
-        client.setSurname("2d3");
-        client.setUser(user1);
-        clientRepository.save(client);
+//        Client client = new Client();
+//        // client.setClientId(Long.valueOf(1));
+//        client.setName("Анна");
+//        client.setSurname("Хомякова");
+//        client.setUser(user1);
+//        clientRepository.save(client);
 
 
     }
@@ -62,17 +68,40 @@ public class AppUserRepositoryTest {
     @Test
     public void testAddingCar(){
         Car car = new Car();
-        car.setCarName("Mers2");
-        car.setColor("красный");
-        car.setPrice(175000);
-
-        Client client = clientRepository.findClientByName("Dddd");
-
-        car.setClient(client);
+        car.setCarId(Long.valueOf(1));
+        car.setCarName("Audi");
+        car.setColor("черный");
+        car.setPrice(8000);
 
         carsRepository.save(car);
-        assertNotNull(car);
-        assertThat(car.getCarName()).isEqualTo("Mers2");
+
+        AppUser user1=new AppUser();
+        user1.setUserId(Long.valueOf(1));
+        user1.setEmail("ann@gmail.com");
+        user1.setPassword("888");
+        user1.setRole(USER);
+        repository.save(user1);
+
+        Client client = new Client();
+        client.setClientId(Long.valueOf(1));
+        client.setName("Анна");
+        client.setSurname("Хомякова");
+        client.setUser(user1);
+        clientRepository.save(client);
+
+        Order order = new Order();
+        order.setOrderId(Long.valueOf(1));
+        order.setCar(car);
+        order.setClient(client);
+
+        orderRepository.save(order);
+
+//       Car  car =  carsRepository.findCarByName("Audi");
+//         List<Car> cars =carsRepository.findAll();
+//         System.out.println(cars);
+//         //cars.get(0);
+//        Client client = clientRepository.findClientByName("Dddd");
+//        //client.setCars(cars);
     }
 
 
@@ -104,6 +133,21 @@ public class AppUserRepositoryTest {
             stringBuilder.append("\n");
         }
         System.out.println(stringBuilder.toString());
+    }
+
+    @Test
+    public void newOrder() {
+        Order order = new Order();
+
+        Client client = clientRepository.findClientById(Long.valueOf(1));
+        Car car = carsRepository.findById(Long.valueOf(1)).get();
+
+        order.setOrderId(Long.valueOf(1));
+        order.setCar(car);
+        order.setClient(client);
+
+        orderRepository.save(order);
+
     }
 
 }

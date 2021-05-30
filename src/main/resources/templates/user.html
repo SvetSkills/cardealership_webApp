@@ -1,70 +1,86 @@
 <!DOCTYPE html>
+<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8"/>
-    <title>Личный кабинет</title>
-    <meta name="viewport" content="width=device-width, initial-scale=2"/>
-    <script src="/templates/public/js/jquery.js" th:src="@{/js/jquery.js}"></script>
-    <script src="/templates/public/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-    <script src="/templates/public/js/validator.js" th:src="@{/js/validator.js}"></script>
-    <link rel="stylesheet" href="/templates/public/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="icon" href="/templates/public/favicon.ico" th:href="@{/favicon.ico}"/>
-    <style>
-        .navbar {
-            margin-bottom: 10px;
-            border-radius: 0;
-        }
-
-        .jumbotron {
-            margin-bottom: 0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <!--    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/animate/animate.css">-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Login_v1/css/main.css">
 </head>
 <body>
 
-<header th:replace="layout :: header"></header>
 
-<div th:replace="layout :: nav"></div>
+<div class="limiter" align="center">
 
-<div class="table">
-    <div class="bottom-left">
-        <div class="col-sm-4">
-            <h4><strong>Логин(email):</strong></h4>
-            <h4 th:text="${user.email}"></h4>
-            <br/>
-            <h4><strong>Пароль: </strong></h4>
-            <h4 th:text="${user.password}"></h4>
-            <br/>
-            <h4><strong>Роль пользователя: </strong></h4>
-            <h4 th:text="${user.role}"></h4>
-            <br/>
-        </div>
-        <div class="col-sm-8">
-            <h4>Пользователи сайта: </h4>
-            <table class="table-bordered">
-                <thead>
-                <tr>
-                    <th>Логин</th>
-                    <th>Пароль</th>
-                    <th>Роль пользователя</th>
-                </tr>
-                </thead>
-                <tr th:each="ticket : ${user.tickets}">
-                    <tbody>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.password}"></td>
-                    <td th:text="${user.role}"></td>
-                    </tbody>
-                </tr>
+    <div class="container-login100">
+        <div class="wrap-login100" align="center">
+            <div class="login100-pic js-tilt" data-tilt align="center">
+                <img src="/Login_v1/images/img-01.png" alt="IMG" align="center" >
+            </div>
+            <div class="login100-pic js-tilt" data-tilt align="center">
+                <img src="/Login_v1/images/img-03.png" alt="IMG" align="center" >
+            </div>
+            <div class="container-login100-form-btn">
+                <h2 align="center">Возможности клиента</h2>
+            </div>
+                <div  class="container-login100-form-btn">
+                    <form th:action="@{/}">
+                        <input type="submit" value="Выйти" class="login100-form-btn" align="center"/>
+                    </form>
+                </div>
+            <div class="container-login100-form-btn">
+<form action="#" th:action="@{/clientInfo}">
+    <input type="submit" value="Личный кабинет" class="login100-form-btn">
+</form>
+            </div>
 
+            <div class="container-login100-form-btn">
+<form action="#" th:action="@{/clientCars}">
+    <input type="submit" value="Корзина заказов" class="login100-form-btn">
+</form>
+            </div>
 
-            </table>
+            <div class="container-login100-form-btn">
+<form action="#" th:action="@{/cars}">
+    <input type="submit" value="Каталог авто" class="login100-form-btn">
+</form>
+            </div>
+            <div class="container-login100-form-btn">
+<form action="#" th:action="@{/comments}">
+    <input type="submit" value="Оставить отзыв" class="login100-form-btn">
+</form>
+            </div>
         </div>
     </div>
 </div>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Выйти"/>
-</form>
+<script src="/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/bootstrap/js/popper.js"></script>
+<script src="/Login_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="/Login_v1/js/main.js"></script>
 </body>
+
 </html>
+

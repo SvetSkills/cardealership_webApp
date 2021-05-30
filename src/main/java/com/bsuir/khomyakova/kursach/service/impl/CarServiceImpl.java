@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class CarServiceImpl implements CarService {
-
-    private final CarsRepository carsRepository;
+public class CarServiceImpl /*implements CarService*/{
 
     @Autowired
-    public CarServiceImpl(CarsRepository carsRepository) {
-        this.carsRepository=carsRepository;
-    }
+    private CarsRepository carsRepository;
 
-    @Override
-    public List<Car> getAllCars() {
-        return carsRepository.findAll();
-    }
+     public List<Car> listAll(){
+          return carsRepository.findAll();
+     }
+     public void save(Car cars){
+         carsRepository.save(cars);
+     }
+     public Car get(Long id){
+         return carsRepository.findById(id).get();
+     }
 }

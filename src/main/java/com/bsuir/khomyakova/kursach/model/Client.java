@@ -1,12 +1,10 @@
 package com.bsuir.khomyakova.kursach.model;
 
-import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name="clients")
+@Table(name="client")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +16,26 @@ public class Client {
     @Column(nullable = false, length = 30)
     private String surname;
 
-   @OneToOne(cascade = CascadeType.ALL)//cascade был закомменчен
+   @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn (name = "user_id", referencedColumnName = "userId")
    private AppUser user;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
-    private List<Car> cars;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.EAGER)
+    private Collection<Order> order;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "comment_id", referencedColumnName = "commentId")
+    private Comment comment;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
+    }
+
+
 
     public void setUser(AppUser user) {
         this.user = user;
@@ -38,14 +50,6 @@ public class Client {
 
     public String getName() {
         return name;
-    }
-
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
     }
 
     public void setName(String name) {
@@ -64,15 +68,11 @@ public class Client {
         return user;
     }
 
-//    public Collection<Car> getCarsCollection() {
-//        return carsCollection;
-//    }
-//
-//    public void setCarsCollection(Collection<Car> carsCollection) {
-//        this.carsCollection = carsCollection;
-//    }
+    public Comment getComment() {
+        return comment;
+    }
 
-//    public void setUser(AppUser user) {
-//        this.user = user;
-//    }
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 }

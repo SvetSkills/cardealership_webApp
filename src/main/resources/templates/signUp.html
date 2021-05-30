@@ -3,25 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Регистрация клиента</title>
-  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-  <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/Login_v1/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Login_v1/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Login_v1/css/main.css">
 </head>
 <body>
 <div class="container text-center">
   <div>
-    <h1>Регистрация пользователя</h1>
+    <h1 class="login100-form-btn">Регистрация пользователя</h1>
   </div>
-  <form th:action="@{/registartion}" th:object="${user}"
+  <div>
+    <h2 >      </h2>
+  </div>
+  <form th:action="@{/registration}" th:object="${user}"
         method="post" style="max-width: 600px; margin: 0 auto;">
     <div class="m-3" th:object="${client}">
       <div class="form-group row">
-<!--        <div class="alert" th:if="${message}" th:text="${message}"></div>-->
+        <div class="alert" th:if="${message}" th:text="${message}"></div>
         <label class="col-4 col-form-label">E-mail: </label>
 
 <!--          роль установила как юзер-->
 
-        <div class="col-8" th:field="${user.role.setUser()}">
+        <div class="col-8" >
           <input type="email"  th:field="${user.email}" class="form-control" required />
         </div>
       </div>
@@ -33,7 +49,6 @@
                  required minlength="6" maxlength="10"/>
         </div>
       </div>
-
       <div class="form-group row">
         <label class="col-4 col-form-label">Имя: </label>
         <div class="col-8">
@@ -51,12 +66,27 @@
         </div>
       </div>
 
-      <div>
-<!--        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>-->
-          <button type="submit">Зарегистрироваться</button>
-      </div>
+          <div>
+          <button type="submit" class="login100-form-btn">Зарегистрироваться</button>
+          </div>
     </div>
   </form>
 </div>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/bootstrap/js/popper.js"></script>
+<script src="/Login_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Login_v1/vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="/Login_v1/js/main.js"></script>
 </body>
 </html>
